@@ -1,2 +1,2 @@
 # rrtsp
-Gstreamer, Qt, RTSP server
+RTSP test server, based on Gstreamer and Qt
