@@ -1,4 +1,5 @@
 #include "main_view.h"
+#include "rtsp_client.h"
 
 MainView::MainView(QWidget *parent)
     : QMainWindow{ parent }
@@ -10,6 +11,12 @@ MainView::MainView(QWidget *parent)
 
     connect(_ui.start, &QPushButton::clicked, this, &MainView::onStart);
     connect(_ui.stop, &QPushButton::clicked, this, &MainView::onStop);
+    connect(_ui.showStream, &QPushButton::clicked, this, &MainView::onShowStream);
+}
+
+MainView::~MainView()
+{
+    gst_deinit();
 }
 
 void MainView::onStart()
@@ -29,4 +36,10 @@ void MainView::onStop()
     _ui.stop->setEnabled(false);
     _ui.start->setEnabled(true);
     _camera->stop();
+}
+
+void MainView::onShowStream()
+{
+    RtspClient *client = new RtspClient{ _widgetSink.winId() };
+    _widgetSink.show();
 }

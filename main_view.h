@@ -3,6 +3,7 @@
 
 #include "camera.h"
 #include "gloop.h"
+#include "widget_sink.h"
 
 #include <QMainWindow>
 #include <memory>
@@ -15,15 +16,18 @@ class MainView : public QMainWindow
 
 public:
     explicit MainView(QWidget *parent = nullptr);
+    ~MainView() override;
 
 private:
     void onStart();
     void onStop();
+    void onShowStream();
 
 private:
     Ui::MainView _ui;
     std::unique_ptr<Gloop> _loop;
     std::unique_ptr<Camera> _camera;
+    WidgetSink _widgetSink;
 };
 
 #endif // MAIN_VIEW_H
